@@ -73,7 +73,7 @@ router.put('/:id/password', async (req: AuthRequest, res: Response): Promise<voi
     return;
   }
 
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).select('+password');
   if (!user) {
     res.status(404).json({ message: 'Không tìm thấy người dùng' });
     return;

@@ -24,6 +24,7 @@ const UserSchema = new Schema<IUser>(
       type: String,
       required: true,
       minlength: 6,
+      select: false,
     },
     name: {
       type: String,
@@ -54,11 +55,5 @@ UserSchema.methods.comparePassword = async function (candidate: string): Promise
   return bcrypt.compare(candidate, this.password);
 };
 
-UserSchema.set('toJSON', {
-  transform: (_doc, ret) => {
-    ret.password = undefined;
-    return ret;
-  },
-});
 
 export default mongoose.model<IUser>('User', UserSchema);

@@ -14,7 +14,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  const user = await User.findOne({ email: email.toLowerCase().trim() });
+  const user = await User.findOne({ email: email.toLowerCase().trim() }).select('+password');
 
   if (!user || !user.isActive) {
     res.status(401).json({ message: 'Email hoặc mật khẩu không đúng' });
@@ -78,7 +78,7 @@ router.put('/password', authenticate, async (req: AuthRequest, res: Response): P
     res.status(400).json({ message: 'Mật khẩu mới phải có ít nhất 6 ký tự' });
     return;
   }
-  const user = await User.findById(req.user!._id);
+  const user = await User.findById(req.user!._id).select('+password');
   if (!user) { res.status(404).json({ message: 'Không tìm thấy người dùng' }); return; }
 
   const isMatch = await user.comparePassword(currentPassword);
