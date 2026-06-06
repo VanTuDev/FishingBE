@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "clear:invoices": "ts-node-dev --transpile-only src/clearInvoices.ts"
+    "clear:invoices": "ts-node-dev --transpile-only src/clearInvoices.ts",
+    "create:admin": "ts-node-dev --transpile-only src/createAdmin.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
